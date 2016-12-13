@@ -7,6 +7,8 @@
 	<script src="jquery-3.1.1.js"></script>
 	<script src="jquery.lettering.js"></script>
 	<script src="jquery.textillate.js"></script>
+	<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 
 	<style>
 		.button {
@@ -62,10 +64,34 @@
 			text-align:right; 
 			font-size: 30px;
 		}
+
+
+		
+
+
 	</style>
 </head>
 
 <body >
+
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body" align="center">
+					GAME OVER !
+				</div>
+				<div class="modal-footer">
+					<button onclick="window.location='gameTest.html';" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Start Over </button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="unselectable">
 		
@@ -80,38 +106,46 @@
 				<span id="currentScore">0</span>
 			</div>
 		</form>
-			
+
 	</div>
 
 	<script>
-	var score=0;
-			$('#butonTest').textillate({
+
+
+		var score=0;
+		$('#butonTest').textillate({
 			in:{effect:'fadeInDown'},
 			out:{effect:'fadeOutDown'},
 			loop:true
-			});
-			
-			$('#textIntrodus').keypress(function(e){
-				console.log("keycode",e.keyCode);
-				if(e.keyCode == 13){
-					event.preventDefault();
-					var buttonText = $('#blabla').text().split(" ");
+		});
 
-					console.log("buttonText",buttonText);
-					console.log($('#textIntrodus').val());
-					var inputText=$('#textIntrodus').val().split(" ");
-					if( inputText[0] == buttonText[0] ){
-						console
+		$('#textIntrodus').keypress(function(e){
+			console.log("keycode",e.keyCode);
+			if(e.keyCode == 13){
+				event.preventDefault();
+				var buttonText = $('#blabla').text().split(" ");
+
+				console.log("buttonText",buttonText);
+				console.log($('#textIntrodus').val());
+				var inputText=$('#textIntrodus').val().split(" ");
+				if( inputText[0] == buttonText[0] ){
+					console
 					score++;
 					$("#currentScore").html(score);
-					} else{
-						score--;
+				} else{
+					score--;
+
 					$("#currentScore").html(score);
-					}
-					console.log( $('#blabla').text());
-					$('#textIntrodus').val('')
 				}
-			})
-		</script>
-	</body>
+				if(score == -3){
+					$('#myModal').modal('show');
+					score = 0;
+					$("#currentScore").text('0');
+				}
+				console.log( $('#blabla').text());
+				$('#textIntrodus').val('')
+			}
+		})
+	</script>
+</body>
 </html>
